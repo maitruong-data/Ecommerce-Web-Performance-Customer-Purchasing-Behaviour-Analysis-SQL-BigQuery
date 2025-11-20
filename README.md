@@ -1,5 +1,5 @@
-# Explore-Ecommerce-Dataset
-Use SQL in BigQuery to improve channel quality, cohort funnel and cross-sell
+# Ecommerce Web Performance & Customer Purchase Behaviour Analysis | SQL, BigQuery
+I analyzed Ecommerce dataset by using SQL in BigQuery to extract key insights about web performance, revenue trends, bounce rate, etc. to improve channel quality, cohort funnel and cross-sell
 
 ## I. PROJECT OVERVIEW
 This project contains an eCommerce dataset that I will explore using SQL on Google BigQuery. 

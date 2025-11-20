@@ -49,7 +49,7 @@ This project includes 8 queries
 
 ### Query 1. Calculate total visit, pageview, transaction for January-August 2017 (order by month).
 **SQL code**
-```
+```sql
 SELECT 
   FORMAT_DATE('%Y%m', parse_date('%Y%m%d', date)) AS month
   ,SUM(totals.visits) AS visits
@@ -71,7 +71,7 @@ May had the highest conversion rate (1.77%) while July brought peak volume (71.8
 
 ### Query 2. Calculate cohort map from product view to addtocart to purchase in 2017 (January-August).
 **SQL code**
-```
+```sql
 WITH 
 product_view AS(--count number of product_view for each month
   SELECT
@@ -131,7 +131,7 @@ The funnel was stable across months: ~28–42% from product views to addtocart a
 
 ### Query 3. Bounce rate per traffic source in July 2017
 **SQL code**
-```
+```sql
 SELECT 
   trafficSource.source AS source
   ,SUM(totals.visits) AS total_visits
@@ -153,7 +153,7 @@ In July, Google and (direct) had the most visits with mid-range bounce (~52% and
 
 ### Query 4. Revenue by traffic source in July 2017
 **SQL code**
-```
+```sql
 WITH 
 base AS ( --Check date string, calculate revenue by traffic source and by date
   SELECT
@@ -185,7 +185,7 @@ In July, most of revenue came from (direct) and Google
 
 ### Query 5. Average number of pageviews by purchaser type (purchasers vs non-purchasers) in July 2017.
 **SQL code**
-```
+```sql
 WITH 
 purchaser AS (--Average number of pageviews by purchaser
   SELECT
@@ -228,7 +228,7 @@ Non-purchasers' pageviews were far more than purchasers' (~334 vs ~124 pageviews
 
 ### Query 6. Average transactions per purchasing user in July 2017 
 **SQL code**
-```
+```sql
 SELECT
   FORMAT_DATE('%Y%m', PARSE_DATE('%Y%m%d', date)) AS month
   --avg transaction per user = total transaction / total visitor
@@ -248,7 +248,7 @@ GROUP BY month;
 
 ### Query 7. Average amount of money spent per session in July 2017
 **SQL code**
-```
+```sql
 SELECT  
   FORMAT_DATE('%Y%m', PARSE_DATE('%Y%m%d', date)) AS month
   -- avg_revenue_per_session = total revenue/ total visit
@@ -267,7 +267,7 @@ GROUP BY month;
 
 ### Query 8. Other products purchased by customers who purchased product "YouTube Men's Vintage Henley" in July 2017. Output should show product name and the quantity was ordered.
 **SQL code**
-```
+```sql
 WITH buyer_list AS(
   SELECT
     DISTINCT fullVisitorId  

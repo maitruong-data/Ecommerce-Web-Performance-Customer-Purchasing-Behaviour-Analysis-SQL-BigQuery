@@ -1,4 +1,4 @@
-# Ecommerce Web Performance & Customer Purchase Behaviour Analysis | SQL, BigQuery
+# Ecommerce Web Performance & Customer Purchasing Behaviour Analysis | SQL, BigQuery
 I analyzed Ecommerce dataset by using SQL in BigQuery to extract key insights about web performance, revenue trends, bounce rate, etc. to improve channel quality, cohort funnel and cross-sell
 
 ## I. PROJECT OVERVIEW

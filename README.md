@@ -3,8 +3,9 @@ I analyzed Ecommerce dataset by using SQL in BigQuery to extract key insights ab
 
 ## I. PROJECT OVERVIEW
 This project contains an eCommerce dataset that I will explore using SQL on Google BigQuery. 
+
 **Business goals:** 
-This project analyzes Google Analytics 360 e-commerce sessions to find practical levers for **growing monthly revenue**. I compare baseline performance and seasonality (visits, pageviews, transactions), with focus on July, and evaluate **channel quality** and **onsite funnel efficiency** using bounce rate, revenue per session, and the view → add-to-cart → purchase path. The analysis identifies which traffic sources to scale or fix, where users drop off, the expected AOV/upsell potential, and **cross-sell pairs** for “frequently bought together”, turning raw GA data into concrete actions for acquisition, conversion, and merchandising.
+This project analyzes Google Analytics 360 e-commerce sessions to find practical levers for **growing monthly revenue**. I compare baseline performance and seasonality (visits, pageviews, transactions), with focus on July, and evaluate **channel quality** and **onsite funnel efficiency** including traffic patterns, bounce rate, revenue per session/ traffic source, and the view → add-to-cart → purchase path. The analysis identifies which traffic sources to scale or fix, where users drop off, the expected AOV/upsell potential, and **cross-sell pairs** for “frequently bought together”, turning raw data into concrete actions for acquisition, conversion, and merchandising.
 
 ## II. DATASET
 **Dataset access:**
@@ -47,8 +48,11 @@ Below are the fields, data type, description of the fields I used in this SQL pr
 ## III. EXPLORE DATASET
 This project includes 8 queries
 
-### Query 1. Calculate total visit, pageview, transaction for January-August 2017 (order by month).
-**SQL code**
+### 🔍 Query 1. Calculate total visit, pageview, transaction for January-August 2017 (order by month).
+
+This query is to measure total visits, page views, transactions for each month from January to August in 2017. The result identifies overall trend and growth in the site
+
+🚀 **Query**
 ```sql
 SELECT 
   FORMAT_DATE('%Y%m', parse_date('%Y%m%d', date)) AS month
@@ -62,15 +66,18 @@ GROUP BY month
 ORDER BY month;
 ```
 
-**Query result**
+💡**Query result**
 
 <img width="911" height="305" alt="image" src="https://github.com/user-attachments/assets/c93ba95c-696d-49ca-97ce-3aeb22f21db3" />
 
 **Key-takeaway:**
 May had the highest conversion rate (1.77%) while July brought peak volume (71.8k visits, 270k page views) but a relatively low conversion rate (1.49%).
 
-### Query 2. Calculate cohort map from product view to addtocart to purchase in 2017 (January-August).
-**SQL code**
+### 🔍 Query 2. Calculate cohort map from product view to addtocart to purchase in 2017 (January-August).
+
+This query result is to build a cohort map to track user journey from product view to purchase in order to evaluate conversion rate in each funnel stage and identify where users drop off. This is to optimize the sale process and improve customer journey experience
+
+🚀 **Query**
 ```sql
 WITH 
 product_view AS(--count number of product_view for each month
@@ -122,15 +129,19 @@ LEFT JOIN purchase AS p ON pv.month = p.month
 ORDER BY pv.month;
 ```
 
-**Query result**
+💡**Query result**
 
 <img width="1031" height="307" alt="image" src="https://github.com/user-attachments/assets/d81db07a-af69-4e5f-9563-0c7f506e6e3a" />
 
 **Key-takeaway:**
 The funnel was stable across months: ~28–42% from product views to addtocart and ~8–15% of views convert to purchase.
 
-### Query 3. Bounce rate per traffic source in July 2017
-**SQL code**
+### 🔍 Query 3. Bounce rate per traffic source in July 2017
+
+This query is to measure user engagement per traffic source. Which channel had the most visits and low bounce (higher engagement)? Which ones had poor engagement?
+
+🚀 **Query**
+
 ```sql
 SELECT 
   trafficSource.source AS source
@@ -144,15 +155,19 @@ GROUP BY source
 ORDER BY bounce_rate DESC;
 ```
 
-**Query result**
+💡**Query result**
 
 <img width="574" height="568" alt="image" src="https://github.com/user-attachments/assets/dd657a27-fcee-419d-b16b-86cf311b4c40" />
 
 **Key-takeaway:**
 In July, Google and (direct) had the most visits with mid-range bounce (~52% and 43%), while youtube.com brought sizable traffic but poor quality (~67% bounce). Other Email/referral sources like reddit.com (~29%), mail.google.com (~25% bounce) or blog.golang.org (~29%) showed the healthiest engagement.
 
-### Query 4. Revenue by traffic source in July 2017
-**SQL code**
+### 🔍 Query 4. Revenue by traffic source in July 2017
+
+This query result will identify which souces bring the most (and the least) revenue in July 2017
+
+🚀 **Query**
+
 ```sql
 WITH 
 base AS ( --Check date string, calculate revenue by traffic source and by date
@@ -183,7 +198,7 @@ ORDER BY month, revenue DESC;
 **Key-takeaway:**
 In July, most of revenue came from (direct) and Google
 
-### Query 5. Average number of pageviews by purchaser type (purchasers vs non-purchasers) in July 2017.
+### 🔍 Query 5. Average number of pageviews by purchaser type (purchasers vs non-purchasers) in July 2017.
 **SQL code**
 ```sql
 WITH 
@@ -226,7 +241,7 @@ Non-purchasers view far more pages than purchasers (~334 vs ~124/pageviews per u
 **Key-takeaway:**
 Non-purchasers' pageviews were far more than purchasers' (~334 vs ~124 pageviews per user), hinting at friction or dead-ends before checkout.
 
-### Query 6. Average transactions per purchasing user in July 2017 
+### 🔍 Query 6. Average transactions per purchasing user in July 2017 
 **SQL code**
 ```sql
 SELECT
@@ -246,7 +261,7 @@ GROUP BY month;
 
 <img width="387" height="69" alt="image" src="https://github.com/user-attachments/assets/301504ed-899a-451c-b814-d4464878d2a2" />
 
-### Query 7. Average amount of money spent per session in July 2017
+### 🔍 Query 7. Average amount of money spent per session in July 2017
 **SQL code**
 ```sql
 SELECT  
@@ -265,7 +280,7 @@ GROUP BY month;
 
 <img width="373" height="71" alt="image" src="https://github.com/user-attachments/assets/9ea99366-7730-4898-aa06-3c70d3346805" />
 
-### Query 8. Other products purchased by customers who purchased product "YouTube Men's Vintage Henley" in July 2017. Output should show product name and the quantity was ordered.
+### 🔍 Query 8. Other products purchased by customers who purchased product "YouTube Men's Vintage Henley" in July 2017. Output should show product name and the quantity was ordered.
 **SQL code**
 ```sql
 WITH buyer_list AS(

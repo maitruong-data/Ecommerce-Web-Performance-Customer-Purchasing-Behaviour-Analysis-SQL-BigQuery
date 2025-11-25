@@ -191,7 +191,7 @@ FROM base
 GROUP BY month, source
 ORDER BY month, revenue DESC;
 ```
-**Query result**
+💡**Query result**
 
 <img width="527" height="352" alt="image" src="https://github.com/user-attachments/assets/87880d26-1ebc-48b0-9d04-4c3d9645b09c" />
 
@@ -199,7 +199,11 @@ ORDER BY month, revenue DESC;
 In July, most of revenue came from (direct) and Google
 
 ### 🔍 Query 5. Average number of pageviews by purchaser type (purchasers vs non-purchasers) in July 2017.
-**SQL code**
+
+This is to evaluate user behaviour between purchasers and non-purchasers in order to see whether purchasers ten to view more before purchasing.
+
+🚀 **Query**
+
 ```sql
 WITH 
 purchaser AS (--Average number of pageviews by purchaser
@@ -234,7 +238,7 @@ ORDER BY p.month;
 Non-purchasers view far more pages than purchasers (~334 vs ~124/pageviews per user), hinting at friction or dead-ends before checkout
 ```
 
-**Query result**
+💡**Query result**
 
 <img width="593" height="72" alt="image" src="https://github.com/user-attachments/assets/6f94631b-4144-4bf2-8b81-b273e95b3c0f" />
 
@@ -242,7 +246,11 @@ Non-purchasers view far more pages than purchasers (~334 vs ~124/pageviews per u
 Non-purchasers' pageviews were far more than purchasers' (~334 vs ~124 pageviews per user), hinting at friction or dead-ends before checkout.
 
 ### 🔍 Query 6. Average transactions per purchasing user in July 2017 
-**SQL code**
+
+This step aims to measure buyers' purchase frequency and their loyalty. Company marketing teams can use the result for site performance and marketing strategies.
+
+🚀 **Query**
+
 ```sql
 SELECT
   FORMAT_DATE('%Y%m', PARSE_DATE('%Y%m%d', date)) AS month
@@ -257,12 +265,16 @@ AND productRevenue IS NOT NULL
 GROUP BY month;
 ```
 
-**Query result**
+💡**Query result**
 
 <img width="387" height="69" alt="image" src="https://github.com/user-attachments/assets/301504ed-899a-451c-b814-d4464878d2a2" />
 
 ### 🔍 Query 7. Average amount of money spent per session in July 2017
-**SQL code**
+
+This query result shows how much each customer is worth on average to help company optimize pricing, marketing spend or have strategies to increase revenue per customer
+
+🚀 **Query**
+
 ```sql
 SELECT  
   FORMAT_DATE('%Y%m', PARSE_DATE('%Y%m%d', date)) AS month
@@ -276,12 +288,16 @@ AND productRevenue IS NOT NULL
 GROUP BY month;
 ```
 
-**Query result**
+💡**Query result**
 
 <img width="373" height="71" alt="image" src="https://github.com/user-attachments/assets/9ea99366-7730-4898-aa06-3c70d3346805" />
 
 ### 🔍 Query 8. Other products purchased by customers who purchased product "YouTube Men's Vintage Henley" in July 2017. Output should show product name and the quantity was ordered.
-**SQL code**
+
+This query reveals which products are frequently bought together with product "YouTube Men's Vintage Henley" in July 2017, helping optimizing cross-sell offers, bundles or personalized recommendations on the site
+
+🚀 **Query**
+
 ```sql
 WITH buyer_list AS(
   SELECT
@@ -308,7 +324,7 @@ GROUP BY other_purchased_products
 ORDER BY quantity DESC;
 ```
 
-**Query result**
+💡**Query result**
 
 <img width="427" height="568" alt="image" src="https://github.com/user-attachments/assets/685078a1-db4d-4a07-a70d-d63640f2b310" />
 

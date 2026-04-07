@@ -2,28 +2,27 @@
 I analyzed Ecommerce dataset by using SQL in BigQuery to extract key insights about web performance, revenue trends, bounce rate, etc. to improve channel quality, cohort funnel and cross-sell
 
 ## I. PROJECT OVERVIEW
-This project contains an eCommerce dataset that I will explore using SQL on Google BigQuery. 
 
 **Business goals:** 
-This project analyzes Google Analytics 360 e-commerce sessions to find practical levers for **growing monthly revenue**. I compare baseline performance and seasonality (visits, pageviews, transactions), with focus on July, and evaluate **channel quality** and **onsite funnel efficiency** including traffic patterns, bounce rate, revenue per session/ traffic source, and the view → add-to-cart → purchase path. The analysis identifies which traffic sources to scale or fix, where users drop off, the expected AOV/upsell potential, and **cross-sell pairs** for “frequently bought together”, turning raw data into concrete actions for acquisition, conversion, and merchandising.
+
+This project analyzes 500K+ e-commerce logs to detect conversion drop-offs, assess traffic source performance and find cross-sell opportunities, helping improve user journey and conversion rates.
+
+❓**Business questions:**
+- Which traffic sources bring the most valuable customers and revenue?
+- How well do users move through the purchase funnel from product view to add-to-cart to purchase?
+- How do browsing and purchasing behaviors differ between buyers and non-buyers?
+- How effectively is the website converting traffic into sales and revenue?
+- Which products are frequently bought together and could support cross-sell opportunities?
 
 ## II. DATASET
-**Dataset access:**
 
-This eCommerce dataset is stored in a public Google BigQuery dataset. To access the dataset, follow these steps:
-- Log in to your Google Cloud Platform account
-- Get data through:
-  - this link https://console.cloud.google.com/bigquery?ws=!1m5!1m4!4m3!1sbigquery-public-data!2sgoogle_analytics_sample!3sga_sessions_20170801
-  - Or create a new project in BigQuery -> select "Add Data" -> "Search a project" -> Enter the project ID "bigquery-public-data.google_analytics_sample.ga_sessions" -> "Enter" -> Click on the "ga_sessions_" table to open it
+- **Google Analytics Sample Store** is a demo e-commerce business used to track how customers visit the website, browse products, and make purchases. It represents a typical online store where teams want to understand traffic sources, shopping behavior, and sales performance. 
+- The dataset includes traffic source, device, geography, session metrics, and nested hit-level interactions such as pageviews, product views, add-to-cart actions, and purchases.
 
-**Dataset description:** 
+<details>
+  
+<summary>See data table in detailed</summary>
 
-The dataset is based on the Google Analytics public dataset and contains data from an eCommerce website. (`bigquery-public-data.google_analytics_sample.ga_sessions_20170801` )
-The sample dataset contains obfuscated Google Analytics 360 data from the [Google Merchandise Store](https://www.googlemerchandisestore.com/shop.axd/Home?utm_source=Partners&utm_medium=affiliate&utm_campaign=Data%20Share%20Promo), a real ecommerce store. The Google Merchandise Store sells Google branded merchandise. The data is typical of what you would see for an ecommerce website. 
-
-**Data description table:**
-
-Below are the fields, data type, description of the fields I used in this SQL project
 
 | Field Name | Data Type | Description |
 |----------|----------|----------|
@@ -45,7 +44,10 @@ Below are the fields, data type, description of the fields I used in this SQL pr
 | hits.product.productSKU      | String     | Product SKU      |
 | hits.product.v2ProductName      | String     | Product Name     |
 
-## III. EXPLORE DATASET
+</details>
+
+## III. KEY BUSINESS QUESTIONS
+
 This project includes 8 queries
 
 ### 🔍 Query 1. Calculate total visit, pageview, transaction for January-August 2017 (order by month).
@@ -332,22 +334,21 @@ ORDER BY quantity DESC;
 Buyers of *YouTube Men’s Vintage Henley* frequently also purchased *Google Sunglasses* (20), *Women’s Vintage Hero Tee Black* (7), and *SPF-15 & Lip Balm* (6) etc.
 
 
-## IV. INSIGHTS
-**Business goal:** Grow monthly revenue by improving channel quality, onsite funnel, and cross-sell.
+## IV. INSIGHTS AND RECOMMENDATIONS
 
-**Baseline health check (January-August 2017)**
+1.  **Direct and Google brought the strongest revenue contribution**, while some traffic sources generated visits but lower business value. <br/>
+--> **Recommendation:** focus more on high-value channels and review lower-quality traffic sources before increasing budget.
 
-- May had highest conversion rate (1,160 txns, 1.77% conversion rate), while July had highest visits and pageviews (71.8k visits, 270k pageviews, 1.49% conversion rate). Recommend to **set a goal to lift July’s conversion rate to May’s level**.
-- Cohort map funnel was consistent through the months, ~38–42% of product views add to cart and ~8–13% convert to purchase. Thus, the biggest loss was **View → Add to Cart**. Recommend to **improve product detail page**, for example, stronger CTA, size/fit guide, faster images, better navigation etc.
+2. **The largest drop happened early in the funnel, from product view to add-to-cart.**
+--> **Recommendation:** improve product pages with clearer product information, stronger calls to action, and a smoother shopping experience. <br/>
 
-**July in focus**
+3.** Non-purchasers browsed more than purchasers**, which suggests friction in product discovery or decision-making. <br/>
+--> **Recommendation:** improve site search, filters, and category navigation to help users find products faster.
 
-- Revenue mainly came from **direct (~79%)** and **Google search (~20%)**
-  - Recommendations:
-        - Add standard query parameters to your links so analytics can attribute traffic and revenue to the right campaigns, instead of tagging them all into “(direct)”.
-        - Scale search/owned demand, and either fix or downweight YouTube/m.facebook (high bounce, low revenue) with intent-matched landing pages and Revenue per Session targets.
-- Non-purchasers browsed more than purchasers (~334 vs ~124 pageviews per user), signaling friction. Recommend to improve filters, breadcrumbs, and zero-results search fixes to shorten paths to cart.
-- In July, a “purchasing user” bought **~4.16 times** (across the month), and each **purchasing session** averages **~$43.86** in revenue. That meant customers already showed **repeat-buy behavior** and a **basket value** just under $45.
-    - Recommend to set **free shipping at ~$49–$55** (≈10–20% above $43.86) to nudge carts slightly higher without scaring buyers. Also, **launch bundles** because repeat buyers are primed to add one more complementary item, which increases attach rate (orders with a bundle/add-on) and average order value (AOV). We then can track and monitor AOV, attach rate and checkout conversion. If conversion drops, adjust the threshold or bundle pricing.
-- Launch data-backed cross-sell on the *YouTube Men’s Vintage Henley*  Product Detail Page. The data shows Henley buyers often also purchase products like *Google Sunglasses*, *Women’s Vintage Hero Tee Black*, and *SPF-15 Slim & Slender Lip Balm*. Thus, surface these as *“Frequently bought together”*, reinforce in the cart, and follow up in post-purchase/email. The goal is to increase attach rate (the % of orders with an add-on) and Average order value (AOV).
-- **Add checkout accelerators**, for example, guest checkout, popular payment methods, address autofill etc. **Target a +2–3 percentage points lift** in **ATC→Purchase** to compound the July gains. July already had big traffic, so turning a few more carts into orders multiplies revenue without needing more visitors.
+4. **Higher traffic did not always lead to better conversion.** Some months had more visits, but weaker conversion efficiency. <br/>
+--> **Recommendation:** optimize for conversion quality, not only traffic volume.
+
+5. **Some products were often bought together, showing cross-sell potential.**
+--> **Recommendation:** use product bundles and “frequently bought together” suggestions to increase average order value.
+
+

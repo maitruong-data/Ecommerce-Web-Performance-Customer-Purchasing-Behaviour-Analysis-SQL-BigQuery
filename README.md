@@ -1,9 +1,15 @@
 # Ecommerce Web Performance & Customer Purchasing Behaviour Analysis | SQL, BigQuery
 I analyzed Ecommerce dataset by using SQL in BigQuery to extract key insights about web performance, revenue trends, bounce rate, etc. to improve channel quality, cohort funnel and cross-sell
 
+## 📑**TABLE OF CONTENTS**
+I. [Project Overview](#i-project-overview) <br/>
+II. [Dataset](#ii-dataset) <br/>
+III. [Key Business Questions](#iii-key-business-questions) <br/>
+IV. [Insights and Recommendations](#iv-insights-and-recommendations) <br/>
+
 ## I. PROJECT OVERVIEW
 
-**Business goals:** 
+⚓**Business goals:** 
 
 This project analyzes 500K+ e-commerce logs to detect conversion drop-offs, assess traffic source performance and find cross-sell opportunities, helping improve user journey and conversion rates.
 
@@ -342,13 +348,13 @@ Buyers of *YouTube Men’s Vintage Henley* frequently also purchased *Google Sun
 2. **The largest drop happened early in the funnel, from product view to add-to-cart.**
 --> **Recommendation:** improve product pages with clearer product information, stronger calls to action, and a smoother shopping experience. <br/>
 
-3.** Non-purchasers browsed more than purchasers**, which suggests friction in product discovery or decision-making. <br/>
+3. **Non-purchasers browsed more than purchasers**, which suggests friction in product discovery or decision-making. <br/>
 --> **Recommendation:** improve site search, filters, and category navigation to help users find products faster.
 
 4. **Higher traffic did not always lead to better conversion.** Some months had more visits, but weaker conversion efficiency. <br/>
 --> **Recommendation:** optimize for conversion quality, not only traffic volume.
 
-5. **Some products were often bought together, showing cross-sell potential.**
+5. **Some products were often bought together, showing cross-sell potential.**  <br/>
 --> **Recommendation:** use product bundles and “frequently bought together” suggestions to increase average order value.
 
 
